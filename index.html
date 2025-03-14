@@ -16,7 +16,6 @@
 
 <body id="body">
     <main class="container">
-        <!-- From Uiverse.io by Creatlydev -->
         <a target="_blank" href="https://github.com/Montavictor/Project-Number-5">
             <button class="btn-github">
                 <svg width="20" height="20" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -39,30 +38,57 @@
             <span id="time-setting">
                 <span id="time" class="time cursor"> </span>
                 <span id="time24" class="time hidden cursor"> </span>
-                <button class="btn-time btn" id="btn-time"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                <button class="btn-time btn" id="btn-time"><i class="fa-solid fa-ellipsis"></i></button>
+                <div class="clock-container hidden" id="clock-container">
+                    <div class="clock-title"><i class="fa-regular fa-clock"></i> Clock</div>
+                    <hr class="line">
+                    <div class="switch-container">
+                        <span class="clock-text">24-hour clock</span>
+                        <label class="switch">
+                            <input type="checkbox" id="toggle-switch">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
             </span>
             <br>
             <div class="name-greeting-container">
                 <span id="greeting" class="greeting"></span>
                 <span id="name-text" class="greeting"></span>
                 <span id="name-input-container" class="hidden">
-                    <input type="text" id="name-input" placeholder="Name">
+                    <input type="text" id="name-input" placeholder="Name" maxlength="20">
                 </span>
                 <span class="greeting" id="dot">.</span>
-                <button class="btn-el2" id="btn-name"><i class="fa-solid fa-pen-to-square"></i></button>
+                <button class="btn-name btn" id="btn-name"><i class="fa-solid fa-pen-to-square"></i></button>
             </div>
         </section>
 
         <section class="focus-container">
-            <h2>What is your main goal for today?</h2>
+            <h2 id="main-goal">What is your main goal for today?</h2>
             <div id="focus-input-container">
-                <input type="text" id="focus-input" placeholder="Enter your focus...">
+                <input type="text" id="focus-input" class="focus-input" placeholder="Enter your focus..."
+                    maxlength="35">
             </div>
             <div id="focus-display" class="hidden">
-                <h3>TODAY</h3>
-                <div class="focus-item">
-                    <input type="checkbox" id="focus-checkbox">
-                    <span id="focus-text"></span>
+                <h2 class="greeting" id="today">TODAY</h2>
+                <div class="today-text-container">
+                    <span id="focus-text" class="focus-input"></span>
+                    <button class="btn-focus btn" id="btn-focus"><i class="fa-solid fa-ellipsis"></i></button>
+                    <div class="focus-menu hidden" id="focus-menu">
+                        <div class="focus-edit" id="focus-edit">
+                            <span><i class="fa-solid fa-pencil"></i></span>
+                            <span>Edit</span>
+    
+                        </div>
+                        <div class="focus-edit" id = "clear-goal">
+                            <span><i class="fa-solid fa-xmark"></i></span>
+                            <span>Clear</span>
+                        </div>
+                        <div class="focus-edit" id="main-complete">
+                            <span ><i class="fa-solid fa-star"></i></span>
+                            <span>Main Goal Completed</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -76,7 +102,8 @@
                 <button id="btn-add-task" class="btn-add">New Task</button>
 
             </div>
-            <input type="text" class="text-add-task hidden" id="task-input" placeholder="New Task"></input>
+            <input type="text" class="text-add-task hidden" id="task-input" placeholder="New Task"
+                maxlength="25"></input>
             <!-- 
             <li class = 'task-container'>            
                 <label class="checkbox-container" >
@@ -87,6 +114,7 @@
                         <i class="fa-solid fa-trash"></i>
                     </button>
                 </label>
+                <hr class="line">
             </li>
                 -->
 
@@ -94,20 +122,19 @@
         <div class="quote-container">
             <p id="quote"></p>
             <p id="author"></p>
-            <span></span><button class="btn-el3" id="quote-menu-button"><i
-                    class="fa-solid fa-circle-plus"></i></button></span>
+            <button class="btn-el3" id="quote-menu-button"><i class="fa-solid fa-circle-plus"></i></button></span>
             <form method="get" class="quote-menu-container hidden" id="quote-menu">
                 <label for="quote-input" class="label">Quote</label>
 
                 <input type="text" class="text-add-task" id="quote-input" placeholder="Add Quote" required
-                    autocomplete="off"></input>
+                    autocomplete="off" maxlength="95"></input>
 
                 <hr class='line'>
 
                 <label class="label author" for="author-input">Author</label>
 
                 <input type="text" class="text-add-task" id="author-input" placeholder="Add Author" required
-                    autocomplete="off"></input>
+                    autocomplete="off" maxlength="50"></input>
                 <hr class='line'>
 
                 <button type="submit" class="btn-add" id="submit-button">Add Quote</button>
@@ -116,7 +143,11 @@
 
     </main>
 
+    
+    <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
     <script src="app.js"></script>
+
+
 </body>
 
 </html>

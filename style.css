@@ -1,5 +1,7 @@
 :root {
     --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    --debug: 1px solid red;
+    --debuggreen: 1px solid green;
 }
 * {
     margin: 0;
@@ -43,7 +45,10 @@ body {
     opacity: 0;
     transition: opacity 100ms ease-in-out;
 }
-
+.btn:hover {
+    background-color: rgba(250, 235, 215, 0.141);
+    border-radius: 50%;
+}
 
 .btn-github {
     position:absolute;
@@ -86,6 +91,17 @@ body {
 .fa-moon {
     font-size: 1.5rem;
 }
+.fa-pencil,
+.fa-xmark,
+.fa-star {
+    padding: 0 7px;
+    opacity: 0.65;
+}
+
+.fa-pencil,
+.fa-star {
+    font-size: small;
+}
 .todo {
     text-align: left;
     font-size: 1.5rem;
@@ -127,19 +143,26 @@ body {
         opacity: 0;
     }
 }
-.todo-menu-container::before  {
+.todo-menu-container::before
+  {
     content: '';
     position: absolute;
-    top:  -10px; 
-    left: 25px;
+    top: -10px; 
     width: 0;
     height: 0;
     opacity: 1;
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
-    border-bottom: 10px solid rgba(2, 2, 2, 0.75);
+    border-bottom: 10px solid rgb(2, 2, 2);
     z-index: 10;
 }
+.todo-menu-container::before {
+    left: 25px;
+}
+.clock-container::before {
+    right: 45px;
+}
+
 .todo-menu-container li {
     list-style-type: none;
   }
@@ -214,7 +237,6 @@ body {
     text-align: left;
   }
 
-
   
 .task-edit {
     background-color: transparent;
@@ -224,7 +246,6 @@ body {
     padding: 5px 7px;
     font-size: 1rem;
     cursor: pointer;
-
 }
 
 .task-edit:hover {
@@ -233,49 +254,146 @@ body {
 }
   
 .btn-time {
-    padding:5px 15px;
+    padding: 5px 8px;
     font-size: x-large;
+    margin-left: 10px;
     top: -50px;
+    opacity:0;
     transition: opacity 100ms ease-in-out;
 }
-.btn-time:hover {
-    background-color: rgba(250, 235, 215, 0.141);
-    border-radius: 50%;
+.btn:active {
+    opacity: 1;
 }
 #time-setting:hover .btn-time {
     opacity: 0.8;
 }
-#time-setting {
-    position:relative;
+#time-setting
+ {
+position:relative;    
+}
+.today-text-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .name-greeting-container {
     position: relative;     
     text-align: center;
     gap: 8px; 
 }
-.btn-el2 {
-    background-color: transparent;
-    fill: transparent;
-    border:none;
-    color: white;
-    position:absolute;
-    cursor: pointer;
-    opacity: 0;
-
+.btn-name {
     top: 15px;
     padding:8px 9px;
-    
     font-size: medium;
+    transition: opacity 100ms ease-in-out;
+}
+    .clock-container {
     
+        padding: 10px;
 
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center; 
+
+        width: 250px;
+        height: 100px;
+        
+        background-color: rgba(2, 2, 2, 0.93);
+        border-radius: 15px;
+        padding: 15px;
+        border: 1px solid rgba(65, 65, 65, 0.189);
+
+        position:absolute;
+        left: 150px;
+        top: 0;
+        z-index: 10;
+        opacity: 1;
+        overflow: visible;
+        transition: display 0.41s, opacity 0.41s;
+        transition-behavior: allow-discrete;
+        @starting-style {
+            opacity: 0;
+        }
+    }
+
+ .clock-title {
+    font-size: 1.3rem;
+    font-weight: bold;
+    text-align: left;
+    width: 100%;
+    margin-bottom: auto;
+ }
+  
+  .switch-container {
+    display:flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    margin-top: auto;
+    justify-content: space-evenly;
+  }
+  .clock-text {
+    font-size: 1rem;
+    width: 100%;
+    text-align: left;
+    color: #ffffff; 
+    align-self: center;
+  }
+.switch {
+    font-size: 13px;
+    position: relative;
+    display: inline-block;
+    width: 4.1em;
+    height: 1.5rem;
 }
-.btn-el2:hover {
-    background-color: rgba(250, 235, 215, 0.141);
-    border-radius: 50%;
+  
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+  
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #fff;
+    border: 1px solid #adb5bd;
+    transition: .4s;
+    border-radius: 20px;
+}
+  
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 1.3em;
+    width: 1.3em;
+    border-radius: 20px;
+    left: 0.27em;
+    bottom: 0.25em;
+    background-color: #adb5bd;
+    transition: .4s;
+}
+  
+input:checked + .slider {
+    background-color: #007bff;
+    border: 1px solid #007bff;
+}
+  
+input:focus + .slider {
+    box-shadow: 0 0 1px #007bff;
+}
+  
+input:checked + .slider:before {
+    transform: translateX(1.4em);
+    background-color: #fff;
 }
 
-
-.name-greeting-container:hover .btn-el2 {
+.name-greeting-container:hover .btn-name {
     opacity: 0.75;
 }
 .btn-td {
@@ -299,9 +417,9 @@ body {
     opacity: 1;
 }   
 
-
 .time-container {
     text-align: center;
+    margin: 0 auto;
 }
 
 .time {
@@ -309,15 +427,12 @@ body {
     font-weight: 500;
 }
 
-
 .name-greeting-container #name-setting {
     font-size: 1.15rem;
     opacity: 0;
     cursor:pointer;
     padding: 6px 14px;
     display: inline-flex;
-
-
 }
 
 .name-greeting-container:hover #name-setting{
@@ -327,34 +442,6 @@ body {
     border-radius: 50%;
     background-color: rgba(245, 245, 220, 0.19);
 }
-
-/*
-.name-greeting-container::after {
-    content: "\f142"; 
-    font-family: "Font Awesome 6 Free"; 
-    font-weight: 900; 
-    font-size: 1.15rem;
-    opacity: 0; 
-    cursor: pointer;
-    padding: 5px 13px;
-    transition: opacity 0.2s ease; 
-}
-
-.name-greeting-container:hover::after {
-    opacity: 0.6; 
-}
-
-.name-greeting-container::after:hover {
-    border-radius: 50%;
-    background-color: rgba(245, 245, 220, 0.241);
-} */
-
-
-/* #time-setting:hover{
-    background-color: rgba(245, 245, 220, 0.115);
-    border-radius: 50%;
-} */
-
 #name-input {
     background: none;
     border: none;
@@ -362,7 +449,7 @@ body {
     font-size: 2.8rem;
     text-align: center;
     padding: 0.5rem;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-family: var(--font);
     width: 100%;
     max-width: 200px;
     border-top-left-radius: 10px;
@@ -375,22 +462,11 @@ body {
 }
 
 
-
 #name-input::placeholder {
     font-size: 2rem;
     color: rgba(255, 255, 255, 0.393)
 }
-@keyframes flashBackground {
-    0% {
-        background-color: rgba(255, 255, 255, 0); 
-    }
-    50% {
-        background-color: rgba(255, 255, 255, 0.393); 
-    }
-    100% {
-        background-color: rgba(255, 255, 255, 0);
-    }
-}
+
 .flash-effect {
     animation: flashBackground 0.5s ease-out;
 }
@@ -409,54 +485,139 @@ body {
 }
 
 .focus-container {
+    height: 150px; 
+    position: relative;
     text-align: center;
-    margin-bottom: auto;
+    margin: 0 auto;
+    max-width: 800px;
+    min-width: 200px;
+    width: auto;
+}
+#focus-display {
+    position: relative;
+    text-align: center;
+    margin: 0 auto; 
+    max-width: 800px; 
+    min-width: 200px;
+    width: auto; 
+    transition: opacity 0.50s ease-in;
+
+    @starting-style {
+        opacity: 0;
+    }
+}
+
+
+
+#focus-display {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    
+}
+#main-goal {
     margin-top: 50px;
 }
-
-.focus-container h2 {
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
-    font-weight: 400;
-    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.511);
+#main-goal, 
+#focus-input-container {
+    transition: display 0.3s, opacity 0.3s ease-in-out;
+    transition-behavior: allow-discrete;
+    @starting-style {
+        opacity: 0;
+    }
 }
 
-#focus-input {
+
+.focus-input {
     background: none;
     border: none;
     color: white;
     font-size: 2.5rem;
     text-align: center;
     padding: 0.5rem;
-    width: 80%;
-    max-width: 600px;
+    width: 100%;
+    /* max-width: 600px; */
     position: relative;
     background-image: linear-gradient(white 50%, transparent 50%);
     background-size: 0% 2px;
     background-repeat: no-repeat;
     background-position: center bottom;
-    transition: background-size 0.5s ease-in-out;
+    transition: background-size 0.5s, ease-in-out display 2s, opacity 2s;
+    transition-behavior: allow-discrete;
+    @starting-style {
+        opacity: 0;
+    }
 }
-
-#focus-input::placeholder {
-    color: rgba(255, 255, 255, 0.319);
-}
-
 #focus-input:focus {
     outline: none;
     background-size: 100% 2px;
 }
-
-
-.focus-item {
-    font-size: 2rem;
-    margin-top: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
+@keyframes flashBackground {
+    0% {
+        background-color: rgba(255, 255, 255, 0); 
+    }
+    50% {
+        background-color: rgba(255, 255, 255, 0.393); 
+    }
+    100% {
+        background-color: rgba(255, 255, 255, 0);
+    }
+}
+.btn-focus {
+    position:inherit;
+    right:150px;
+    
+    padding: 5px 7px 4px 7px;
+    font-size: large;
+    align-self: center;
+}
+#focus-input::placeholder {
+    color: rgba(255, 255, 255, 0.319);
+}
+#focus-display:hover #btn-focus {
+    opacity: 0.9;
 }
 
+
+
+.focus-menu {
+    margin: 0 auto; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+
+    width: 220px;
+    
+    height: 115px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    background-color: rgba(2, 2, 2, 0.93);
+    border-radius: 15px;
+
+    border: 1px solid rgba(65, 65, 65, 0.189);
+
+    position:absolute;
+    top:-20px;
+    right:-120px;
+    z-index: 10;
+    opacity: 1;
+    transition: display 0.41s, opacity 0.41s;
+    transition-behavior: allow-discrete;
+    @starting-style {
+        opacity: 0;
+    }
+}
+
+.focus-edit {
+    width: 100%;
+    text-align: left;
+    padding: 5px;
+    cursor: pointer;
+}
+.focus-edit:hover {
+    background-color: #d3d3d325;
+}
 .quote-container {
     text-align: center;
     margin-top: auto;
@@ -537,6 +698,9 @@ body {
     font-style: italic;
     margin-bottom: 20px;
     transition: transform 0.3s ease;
+    text-wrap: wrap;
+    white-space: normal;
+    word-wrap: break-word;
 }
 
 
@@ -588,6 +752,9 @@ body {
     opacity: 0.2;
 }
 
+.width100 {
+    width: 100%;
+}
 .completed {
     text-decoration: line-through;
     opacity: 0.7;

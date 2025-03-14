@@ -1,11 +1,13 @@
 
 const backgrounds = [
-    "url('https://images.wallpapersden.com/image/download/kimi-no-na-wa_a2xrbmmUmZqaraWkpJRobWllrWdma2U.jpg')",
+    "url('https://images.wallpapersden.com/image/download/anime-sunset-original-art_a25qbmWUmZqaraWkpJRnbmltrWZtaGY.jpg')",
 
     "url('https://images.wallpapersden.com/image/download/anime-city-4k-aesthetic_bmZuZ2iUmZqaraWkpJRobWllrWdma2U.jpg')",
         
-    "url('https://images.wallpapersden.com/image/download/zen-tanjiro-kamado-hd-demon-slayer_bmdmbGmUmZqaraWkpJRpZWVlrWdnaW0.jpg')",
-    "url('https://images7.alphacoders.com/737/thumb-1920-737400.jpg')"
+    "url('https://images.wallpapersden.com/image/download/dreamy-hd-anime-landscape_bmdqaGWUmZqaraWkpJRmbmdsrWZlbWU.jpg')",
+    "url('https://images7.alphacoders.com/737/thumb-1920-737400.jpg')",
+    "url('https://images.wallpapersden.com/image/download/city-4k-anime-art_bWZlaGmUmZqaraWkpJRpbWVlrWdpZWU.jpg')",
+    "url('https://images.wallpapersden.com/image/download/kimi-no-na-wa-anime-city_a2pnbmqUmZqaraWkpJRmbmdlrWZlbWU.jpg')"
 ]
 function updateBackground() {
     const body = document.body;
@@ -15,7 +17,6 @@ function updateBackground() {
     body.style.backgroundPosition = 'center center';
     body.style.backgroundAttachment = 'fixed';
     body.style.backgroundRepeat = 'no-repeat';
-
 }
 // time function 
 const timeElement = document.getElementById('time');
@@ -34,12 +35,13 @@ function updateTime() {
     } else {
         hour12 = hours;
     }
-
     if (minutes < 10) {
         timeElement.textContent = `${hour12}:0${minutes}`;
     } else {
         timeElement.textContent = `${hour12}:${minutes}`;
     }
+
+
     if (hours < 10) {
         if (minutes < 10) {
             timeTwentyFourElement.textContent = `0${hours}:0${minutes}`;
@@ -69,19 +71,31 @@ function updateTime() {
 
 // Time Button
 
-
 const buttonTime = document.getElementById('btn-time');
 
 buttonTime.addEventListener('click', () => {
-    timeElement.classList.toggle('hidden');
-    timeTwentyFourElement.classList.toggle('hidden');
+    const clockMenu = document.getElementById('clock-container');
+    buttonTime.classList.toggle('active');
+    clockMenu.classList.toggle('hidden');
+    if (clockMenu.classList.contains('hidden')) {
+        buttonTime.classList.remove('active');
+    } else {
+        buttonTime.classList.add('active');
+    }
+    console.log(clockMenu);
+    console.log(buttonTime);
 });
+const toggleSwitch = document.getElementById('toggle-switch');
 
+toggleSwitch.addEventListener('click', () => {
+    timeElement.classList.toggle('hidden');
+    timeTwentyFourElement.classList.toggle('hidden')
+});
 
 // end Time Button
 
 
-// name input elements
+// name  elements
 const nameInput = document.getElementById('name-input');
 const nameInputContainer = document.getElementById('name-input-container');
 const nameText = document.getElementById('name-text');
@@ -114,6 +128,10 @@ function nameEdit() {
         nameText.classList.remove('flash-effect'); }, { once: true }); 
 }
 
+nameText.addEventListener('click', ()=> {
+    nameEdit();
+    nameInput.focus();
+});
 nameInput.addEventListener('keydown', (event) => {
     if (event.key === 'Enter') {
         nameEdit();
@@ -129,10 +147,75 @@ const focusDisplay = document.getElementById('focus-display');
 const focusText = document.getElementById('focus-text');
 const focusCheckbox = document.getElementById('focus-checkbox');
 const focusInputContainer = document.getElementById('focus-input-container');
+const goalText = document.getElementById('main-goal');
+const todayText = document.getElementById('today');
+
+const buttonFocus = document.getElementById('btn-focus');
+const focusMenu = document.getElementById('focus-menu');
+
+focusInput.addEventListener('keypress', (event)=> {
+    if (event.key === 'Enter') {
+        console.log(event);
+        goalText.classList.add('hidden');
+        focusInputContainer.classList.toggle('hidden');
+        focusText.textContent = focusInput.value;
+
+        setTimeout(() => {
+            focusDisplay.classList.toggle('hidden');
+            focusMenu.classList.add('hidden'); 
+        }, 400); 
+    }
+});
 
 
+buttonFocus.addEventListener('click', ()=> {
+    focusMenu.classList.toggle('hidden');
+});
+const goalComplete = document.getElementById('main-complete');
 
-// to do list button
+goalComplete.addEventListener('click', ()=>{
+    focusText.classList.add('completed');
+    focusInput.value = '';
+    todayText.classList.add('completed');
+    confetti({
+        particleCount: 70,
+        angle: -180,
+        spread: 150,
+        origin: { y: -0.1 },
+      });
+});
+
+const clear = document.getElementById('clear-goal');
+
+clear.addEventListener('click', ()=> {
+    focusText.classList.remove('completed');
+    todayText.classList.remove('completed');
+    focusDisplay.classList.toggle('hidden');
+    focusInput.value = '';
+    focusText.textContent = '';
+    
+    setTimeout(()=> {
+    focusInputContainer.classList.toggle('hidden');
+    goalText.classList.toggle('hidden');
+}, 500);
+}); 
+
+const focusEdit = document.getElementById('focus-edit');
+focusEdit.addEventListener('click', ()=> {
+    focusText.classList.remove('completed');
+    todayText.classList.remove('completed');
+    focusDisplay.classList.add('hidden');
+        
+    setTimeout(()=> {
+    focusInputContainer.classList.toggle('hidden');
+    goalText.classList.toggle('hidden');
+    focusInput.focus();
+}, 500);
+    
+}); 
+
+
+// TASK ELEMENTS 
 const buttonTask = document.getElementById('btn-todo');
 const taskMenu = document.getElementById('task-menu');
 const taskInput = document.getElementById('task-input');
@@ -166,11 +249,12 @@ buttonTask.addEventListener('click', buttonToggle);
 
 
 function addTask() {
-    console.log(buttonAddTask); 
+        
     buttonAddTask.classList.toggle('hidden');
-    console.log(buttonAddTask); 
+        console.log(buttonAddTask); 
     textAddTask.classList.toggle('hidden');
-    console.log(textAddTask);
+        console.log(textAddTask);
+    taskMenu.style.minHeight ='90px';
     textAddTask.focus();
 }
 buttonAddTask.addEventListener('click', addTask);
@@ -224,7 +308,15 @@ function addList() {
         hr.classList.add('line');
         const taskText = document.querySelector('.task-text');
         taskText.classList.add('hidden');
+        label.appendChild(checkBox);
+        label.appendChild(checkmark);
+        label.appendChild(text);
+        label.appendChild(editButton)
+        li.appendChild(label);
+        li.appendChild(hr);
 
+        taskMenu.appendChild(li);
+        
         editButton.addEventListener('click', () => {
             li.remove();
             const liChecker = taskMenu.querySelectorAll('li').length;
@@ -236,20 +328,10 @@ function addList() {
                 console.log(liChecker);
 
             } else {
-                console.log(liChecker);
+                console.log(taskMenu.querySelectorAll('li'));
             }
         });
         
-        label.appendChild(checkBox);
-        label.appendChild(checkmark);
-        label.appendChild(text);
-        label.appendChild(editButton)
-        li.appendChild(label);
-        li.appendChild(hr);
-
-        taskMenu.appendChild(li);
-
-
         taskMenu.insertBefore(li, taskInput);
         taskInput.value = '';
 
@@ -257,7 +339,7 @@ function addList() {
     }
 
 }
-taskInput.addEventListener('keydown', (event) =>{
+taskInput.addEventListener('keypress', (event) =>{
     if(event.key === 'Enter') {
         addList();
     }
@@ -285,8 +367,8 @@ quoteMenuButton.addEventListener('click', () => {
 
 const quotes = [
     {
-        text: "You only fail when you stop trying",
-        author: "Makunuochi Ippo"
+        text: "A person who never made a mistake never tried something new",
+        author: "Albert Einstein"
     },
     {
         text: "Every challenge makes you stronger. You're growing, learning and evolving into the best version of yourself",
@@ -331,15 +413,18 @@ quoteMenu.addEventListener('submit', function(event) {
     const authorInput = document.getElementById('author-input');
 
     event.preventDefault();
-    
-    quotes.push({
-        text: `${quoteInput}`,
-        author: `${authorInput}`
-    })
+    const newQuote = 
+    {
+        text: quoteInput.value,
+        author: quoteInput.value
+    }
+    quotes.push(newQuote);
     quoteElement.textContent = `"${quoteInput.value}"`;
     authorElement.textContent = `- ${authorInput.value}`;
 
     quoteMenu.classList.add('hidden');
+    quoteInput.value = '';
+    authorInput.value = '';
 });
 
 
@@ -359,9 +444,9 @@ function doItAll() {
     updateBackground();
     updateWeather();
     setInterval(updateWeather, 60* 60 *1000);
-    setInterval(updateBackground,20 * 60 * 1000);
+    setInterval(updateBackground, 20 * 60 * 1000);
     setInterval(updateTime, 30 * 1000);
-    setInterval(updateQuote, 10* 60 *1000);
+    setInterval(updateQuote, 5* 60 *1000);
 }
 
 doItAll();
