@@ -3,7 +3,7 @@ const backgrounds = [
     "url('https://images.wallpapersden.com/image/download/anime-sunset-original-art_a25qbmWUmZqaraWkpJRnbmltrWZtaGY.jpg')",
 
     "url('https://images.wallpapersden.com/image/download/anime-city-4k-aesthetic_bmZuZ2iUmZqaraWkpJRobWllrWdma2U.jpg')",
-        
+
     "url('https://images.wallpapersden.com/image/download/dreamy-hd-anime-landscape_bmdqaGWUmZqaraWkpJRmbmdsrWZlbWU.jpg')",
     "url('https://images7.alphacoders.com/737/thumb-1920-737400.jpg')",
     "url('https://images.wallpapersden.com/image/download/city-4k-anime-art_bWZlaGmUmZqaraWkpJRpbWVlrWdpZWU.jpg')",
@@ -11,7 +11,7 @@ const backgrounds = [
 ]
 function updateBackground() {
     const body = document.body;
-    const randomBackground = backgrounds[Math.floor(Math.random()*backgrounds.length)];
+    const randomBackground = backgrounds[Math.floor(Math.random() * backgrounds.length)];
     body.style.background = `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), ${randomBackground}`;
     body.style.backgroundSize = 'cover';
     body.style.backgroundPosition = 'center center';
@@ -28,10 +28,10 @@ function updateTime() {
     const hours = now.getHours();
     const minutes = now.getMinutes();
     let hour12 = 0;
-    if (hours === 0){
+    if (hours === 0) {
         hour12 = 12;
     } else if (hours > 12) {
-        hour12 = hours - 12; 
+        hour12 = hours - 12;
     } else {
         hour12 = hours;
     }
@@ -101,15 +101,16 @@ const nameInputContainer = document.getElementById('name-input-container');
 const nameText = document.getElementById('name-text');
 const buttonName = document.getElementById('btn-name');
 
-function nameButton(){
+function nameButton() {
     nameInputContainer.classList.toggle('hidden');
     nameText.classList.toggle('hidden');
     nameText.textContent = nameInput.value.trim();
-    
+
     nameInput.focus();
     nameInput.classList.add('flash-effect');
     nameInput.addEventListener('animationend', () => {
-        nameInput.classList.remove('flash-effect'); }, { once: true }); 
+        nameInput.classList.remove('flash-effect');
+    }, { once: true });
 }
 buttonName.addEventListener('click', nameButton)
 
@@ -119,16 +120,17 @@ function nameEdit() {
     if (inputValue) {
         nameText.textContent = inputValue;
     }
-    
+
     nameInputContainer.classList.toggle('hidden');
     nameText.classList.toggle('hidden');
-    
+
     nameText.classList.add('flash-effect');
     nameText.addEventListener('animationend', () => {
-        nameText.classList.remove('flash-effect'); }, { once: true }); 
+        nameText.classList.remove('flash-effect');
+    }, { once: true });
 }
 
-nameText.addEventListener('click', ()=> {
+nameText.addEventListener('click', () => {
     nameEdit();
     nameInput.focus();
 });
@@ -153,7 +155,7 @@ const todayText = document.getElementById('today');
 const buttonFocus = document.getElementById('btn-focus');
 const focusMenu = document.getElementById('focus-menu');
 
-focusInput.addEventListener('keypress', (event)=> {
+focusInput.addEventListener('keypress', (event) => {
     if (event.key === 'Enter') {
         console.log(event);
         goalText.classList.add('hidden');
@@ -162,18 +164,18 @@ focusInput.addEventListener('keypress', (event)=> {
 
         setTimeout(() => {
             focusDisplay.classList.toggle('hidden');
-            focusMenu.classList.add('hidden'); 
-        }, 400); 
+            focusMenu.classList.add('hidden');
+        }, 400);
     }
 });
 
 
-buttonFocus.addEventListener('click', ()=> {
+buttonFocus.addEventListener('click', () => {
     focusMenu.classList.toggle('hidden');
 });
 const goalComplete = document.getElementById('main-complete');
 
-goalComplete.addEventListener('click', ()=>{
+goalComplete.addEventListener('click', () => {
     focusText.classList.add('completed');
     focusInput.value = '';
     todayText.classList.add('completed');
@@ -182,79 +184,77 @@ goalComplete.addEventListener('click', ()=>{
         angle: -180,
         spread: 150,
         origin: { y: -0.1 },
-      });
+    });
 });
 
 const clear = document.getElementById('clear-goal');
 
-clear.addEventListener('click', ()=> {
+clear.addEventListener('click', () => {
     focusText.classList.remove('completed');
     todayText.classList.remove('completed');
     focusDisplay.classList.toggle('hidden');
+    focusMenu.classList.add('hidden');
     focusInput.value = '';
-    focusText.textContent = '';
-    
-    setTimeout(()=> {
-    focusInputContainer.classList.toggle('hidden');
-    goalText.classList.toggle('hidden');
-}, 500);
-}); 
+
+    setTimeout(() => {
+
+        focusText.textContent = '';
+        focusInputContainer.classList.toggle('hidden');
+        goalText.classList.toggle('hidden');
+    }, 500);
+});
 
 const focusEdit = document.getElementById('focus-edit');
-focusEdit.addEventListener('click', ()=> {
+focusEdit.addEventListener('click', () => {
     focusText.classList.remove('completed');
     todayText.classList.remove('completed');
     focusDisplay.classList.add('hidden');
-        
-    setTimeout(()=> {
-    focusInputContainer.classList.toggle('hidden');
-    goalText.classList.toggle('hidden');
-    focusInput.focus();
-}, 500);
-    
-}); 
+
+    setTimeout(() => {
+        focusInputContainer.classList.toggle('hidden');
+        goalText.classList.toggle('hidden');
+        focusInput.focus();
+    }, 500);
+    focusMenu.classList.toggle('hidden');
+});
 
 
 // TASK ELEMENTS 
 const buttonTask = document.getElementById('btn-todo');
 const taskMenu = document.getElementById('task-menu');
 const taskInput = document.getElementById('task-input');
-
-
 const horizontalLine = document.getElementById('line');
-
 const textAddTask = document.getElementById('task-input');
 const buttonAddTask = document.getElementById('btn-add-task');
-console.log(buttonAddTask); 
+console.log(buttonAddTask);
 
 function buttonToggle() {
     taskMenu.classList.toggle("hidden");
     const taskText = document.querySelector('.task-text');
     const liChecker = taskMenu.querySelectorAll('li').length;
-            if (liChecker === 0) {
-                buttonAddTask.classList.remove('hidden');
-                taskInput.classList.add('hidden');
-                taskMenu.style.minHeight ='250px';
-                console.log(liChecker);
+    if (liChecker === 0) {
+        buttonAddTask.classList.remove('hidden');
+        taskInput.classList.add('hidden');
+        taskMenu.style.minHeight = '250px';
+        console.log(liChecker);
 
-            } else {
-                buttonAddTask.classList.add('hidden');
-                taskInput.classList.remove('hidden');
-                taskText.classList.add('hidden');
-                console.log(`${liChecker} else`);
-            }
+    } else {
+        buttonAddTask.classList.add('hidden');
+        taskInput.classList.remove('hidden');
+        taskText.classList.add('hidden');
+        console.log(`${liChecker} else`);
+    }
 }
 buttonTask.addEventListener('click', buttonToggle);
 
 
-
 function addTask() {
-        
+
     buttonAddTask.classList.toggle('hidden');
-        console.log(buttonAddTask); 
+    console.log(buttonAddTask);
     textAddTask.classList.toggle('hidden');
-        console.log(textAddTask);
-    taskMenu.style.minHeight ='90px';
+    console.log(textAddTask);
+    taskMenu.style.minHeight = '90px';
     textAddTask.focus();
 }
 buttonAddTask.addEventListener('click', addTask);
@@ -275,12 +275,13 @@ buttonAddTask.addEventListener('click', addTask);
    </li> */
 
 function addList() {
-    taskMenu.style.minHeight ='100px';
+    taskMenu.style.minHeight = '100px';
     const taskValue = taskInput.value.trim();
 
     if (taskValue) {
         const li = document.createElement('li');
         li.classList.add('task-container');
+        li.classList.add('width100')
 
         const label = document.createElement('label');
         label.classList.add('checkbox-container');
@@ -295,7 +296,7 @@ function addList() {
         checkBox.addEventListener('change', () => {
             text.classList.toggle('completed');
         });
-        
+
         const text = document.createElement('span');
         text.classList.add('text');
         text.textContent = taskValue;
@@ -303,7 +304,7 @@ function addList() {
         const editButton = document.createElement('button');
         editButton.classList.add('task-edit');
         editButton.innerHTML = '<i class="fa-solid fa-trash"></i>';
-        
+
         const hr = document.createElement('hr');
         hr.classList.add('line');
         const taskText = document.querySelector('.task-text');
@@ -316,7 +317,7 @@ function addList() {
         li.appendChild(hr);
 
         taskMenu.appendChild(li);
-        
+
         editButton.addEventListener('click', () => {
             li.remove();
             const liChecker = taskMenu.querySelectorAll('li').length;
@@ -324,14 +325,14 @@ function addList() {
                 taskText.classList.remove('hidden');
                 buttonAddTask.classList.remove('hidden');
                 taskInput.classList.add('hidden');
-                taskMenu.style.minHeight ='250px';
+                taskMenu.style.minHeight = '250px';
                 console.log(liChecker);
 
             } else {
                 console.log(taskMenu.querySelectorAll('li'));
             }
         });
-        
+
         taskMenu.insertBefore(li, taskInput);
         taskInput.value = '';
 
@@ -339,8 +340,8 @@ function addList() {
     }
 
 }
-taskInput.addEventListener('keypress', (event) =>{
-    if(event.key === 'Enter') {
+taskInput.addEventListener('keypress', (event) => {
+    if (event.key === 'Enter') {
         addList();
     }
 });
@@ -350,7 +351,7 @@ taskInput.addEventListener('keypress', (event) =>{
 
 const quoteMenuButton = document.getElementById('quote-menu-button');
 const quoteMenu = document.getElementById('quote-menu');
-
+const submitButton = document.getElementById('submit-button');
 
 quoteMenuButton.addEventListener('click', () => {
     const quoteInput = document.getElementById('quote-input');
@@ -364,7 +365,6 @@ quoteMenuButton.addEventListener('click', () => {
 });
 
 
-
 const quotes = [
     {
         text: "A person who never made a mistake never tried something new",
@@ -374,9 +374,9 @@ const quotes = [
         text: "Every challenge makes you stronger. You're growing, learning and evolving into the best version of yourself",
         author: "Anonymous"
     },
-    { 
-        text: "The future belongs to those who believe in the beauty of their dreams.", 
-        author: "Eleanor Roosevelt" 
+    {
+        text: "The future belongs to those who believe in the beauty of their dreams.",
+        author: "Eleanor Roosevelt"
     },
     {
         text: "Believe you can and you're halfway there.",
@@ -393,31 +393,32 @@ const quotes = [
     {
         text: "You are never too old to set another goal or to dream a new dream.",
         author: "Malala Yousafzai"
-    }   
+    }
 ];
 
 function updateQuote() {
     const quoteElement = document.getElementById('quote');
     const authorElement = document.getElementById('author');
     const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+
     quoteElement.textContent = `"${randomQuote.text}"`;
     authorElement.textContent = `- ${randomQuote.author}`;
 }
 
-const submitButton = document.getElementById('submit-button');
-quoteMenu.addEventListener('submit', function(event) {
+
+quoteMenu.addEventListener('submit', function (event) {
     const quoteElement = document.getElementById('quote');
     const authorElement = document.getElementById('author');
-    
     const quoteInput = document.getElementById('quote-input');
     const authorInput = document.getElementById('author-input');
 
     event.preventDefault();
-    const newQuote = 
+    const newQuote =
     {
         text: quoteInput.value,
         author: quoteInput.value
-    }
+    };
+
     quotes.push(newQuote);
     quoteElement.textContent = `"${quoteInput.value}"`;
     authorElement.textContent = `- ${authorInput.value}`;
@@ -427,7 +428,6 @@ quoteMenu.addEventListener('submit', function(event) {
     authorInput.value = '';
 });
 
-
 function updateWeather() {
     const temperatureElement = document.getElementById('temperature');
     const locationElement = document.getElementById('location');
@@ -435,18 +435,15 @@ function updateWeather() {
     locationElement.textContent = " Makati";
 }
 
-
-
-
 function doItAll() {
     updateTime();
     updateQuote();
     updateBackground();
     updateWeather();
-    setInterval(updateWeather, 60* 60 *1000);
+    setInterval(updateWeather, 60 * 60 * 1000);
     setInterval(updateBackground, 20 * 60 * 1000);
     setInterval(updateTime, 30 * 1000);
-    setInterval(updateQuote, 5* 60 *1000);
+    setInterval(updateQuote, 5 * 60 * 1000);
 }
 
 doItAll();
